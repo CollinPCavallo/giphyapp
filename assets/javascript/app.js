@@ -51,13 +51,14 @@ $(document).ready(function () {
             }
             $("img").click(function () {
 
+                //this will check the src of whatever is clicked to the still version of the img and if it matches it switches it to the animated version
                 if ($(this).attr("src") === $(this).attr("data-gif1")) {
 
                     $(this).attr("src", $(this).attr("data-gif2"))
 
 
                 } else {
-
+                    //this swtiches the image back on click if its anything other than the still image
                     $(this).attr("src", $(this).attr("data-gif1"))
 
                 }
