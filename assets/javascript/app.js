@@ -14,7 +14,7 @@ $(document).ready(function () {
 
         var emotionClicked = $(this).attr("data-name");
 
-        var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=" + emotionClicked + "&api_key=CQUgOff8UZGg9g9xvy3Nzv9sr6XDp03l&limit=10");
+        var xhr = $.get("https://api.giphy.com/v1/gifs/search?q=" + emotionClicked + "&api_key=CQUgOff8UZGg9g9xvy3Nzv9sr6XDp03l&limit=10");
 
         xhr.done(function (data) {
 
