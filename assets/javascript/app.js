@@ -10,35 +10,63 @@ $(document).ready(function () {
     var topics = ["happy", "sad", "angry", "hype", "selfish"];
 
     function dispGifs() {
-        $("#rating").empty();
-        $("#gifsChosen").empty();
-        $("#gifDisp").empty();
+        $("#displayGifs").empty();
+
         var emotionClicked = $(this).attr("data-name");
 
         var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=" + emotionClicked + "&api_key=CQUgOff8UZGg9g9xvy3Nzv9sr6XDp03l&limit=10");
 
         xhr.done(function (data) {
-            $("#displayGifs").append("<div id='gifDisp'</div>")
-            $("#displayGifs").append("<div id='rating'><div>");
-            $("#displayGifs").append("<div id='gifsChosen'></div>");
+
             for (var i = 0; i < 10; i++) {
-                console.log(data.data[i].images.original_still.url)
-                
-                
-            
+                console.log(data)
 
-            
-            $("#gifDisp").append($("#rating")).append(JSON.stringify(data.data[i].rating));
-            $("#gifDisp").append($("#gifsChosen")).append("<img id='stillGif' src='" + data.data[i].images.original_still.url + "'>");
-            
+                //this creates a div to hold the rating and gif together
+                var createDiv = $("<div>")
 
-            
+                createDiv.addClass("gifWrap")
 
-            makeButtons();
+                //this creates an h4 tag that we will append the rating too
+                var addRating = $("<h4>")
+
+                addRating.append(data.data[i].rating);
+
+                //this creates the img tag and stores 2 data values into the gif, one is a still one is the animated so we can switch between the two(*MAD PROPS TO FERENC)*
+                var gif = $("<img>")
+
+                gif.attr("data-gif1", data.data[i].images.fixed_height_still.url)
+
+                gif.attr("data-gif2", data.data[i].images.fixed_height.url)
+
+                gif.attr("src", data.data[i].images.fixed_height_still.url)
+            
+                //This puts everything in the first div we made(gif and rating) for easier and cleaner css
+                createDiv.append(addRating)
+
+                createDiv.append(gif)
+
+                $("#displayGifs").append(createDiv)
+
+                makeButtons();
             }
+            $("img").click(function () {
+
+                if ($(this).attr("src") === $(this).attr("data-gif1")) {
+
+                    $(this).attr("src", $(this).attr("data-gif2"))
+
+
+                } else {
+
+                    $(this).attr("src", $(this).attr("data-gif1"))
+
+                }
+
+            })
+
 
             console.log("success got data", data);
-            
+
 
         });
 
@@ -75,20 +103,19 @@ $(document).ready(function () {
 
         $("#gifButtons").empty();
 
+        $("#emotionInput").empty()
+
         makeButtons();
 
 
 
-    })
+    });
 
-$("gifDisp").on("click", function(){
-    $(this).replaceWith("<img id='animated' src='" + data.data[i].images.original.url + "'>")
-    console.log(data.data[i].images.original.url)
+    $(document).on("click", ".emotionButton", dispGifs);
 
-})
-$(document).on("click", ".emotionButton", dispGifs);
 
-makeButtons();
+
+    makeButtons();
 
 
 });
