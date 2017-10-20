@@ -41,9 +41,11 @@ $(document).ready(function () {
                 gif.attr("src", data.data[i].images.fixed_height_still.url)
             
                 //This puts everything in the first div we made(gif and rating) for easier and cleaner css
-                createDiv.append(addRating)
+                
 
                 createDiv.append(gif)
+                
+                createDiv.append(addRating)
 
                 $("#displayGifs").append(createDiv)
 
