@@ -29,7 +29,7 @@ $(document).ready(function () {
                 //this creates an h4 tag that we will append the rating too
                 var addRating = $("<h4>")
 
-                addRating.append(data.data[i].rating);
+                addRating.append("Rating: " + data.data[i].rating);
 
                 //this creates the img tag and stores 2 data values into the gif, one is a still one is the animated so we can switch between the two(*MAD PROPS TO FERENC)*
                 var gif = $("<img>")
@@ -97,6 +97,10 @@ $(document).ready(function () {
 
     //line to add emotion to array list.
     $("#addEmotion").on("click", function (e) {
+        if ($("#emotionInput").val() === ""){
+            alert("Please Enter an emotion")
+        }
+        else{
 
         topics.push($("#emotionInput").val())
 
@@ -109,6 +113,7 @@ $(document).ready(function () {
         $("#emotionInput").empty()
 
         makeButtons();
+        }
 
 
 
